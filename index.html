@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <title>Conto alla Rovescia</title>
+  <style>
+    /* Stili di base per rendere il widget gradevole */
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      background: #f0f0f0;
+    }
+    .countdown {
+      background: #fff;
+      border: 1px solid #ccc;
+      padding: 20px;
+      border-radius: 8px;
+      text-align: center;
+      box-shadow: 0px 2px 6px rgba(0,0,0,0.1);
+    }
+    .time {
+      display: inline-block;
+      margin: 0 10px;
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+    .label {
+      display: block;
+      font-size: 0.75rem;
+      color: #999;
+    }
+  </style>
+</head>
+<body>
+  <div class="countdown" id="countdown">
+    <div class="time"><span id="days">0</span><span class="label">Giorni</span></div>
+    <div class="time"><span id="hours">0</span><span class="label">Ore</span></div>
+    <div class="time"><span id="minutes">0</span><span class="label">Minuti</span></div>
+    <div class="time"><span id="seconds">0</span><span class="label">Secondi</span></div>
+  </div>
+  
+  <script>
+    // Imposta la data di destinazione (modifica come preferisci)
+    const targetDate = new Date("2025-04-29T05:00:00").getTime();
+    
+    function updateCountdown() {
+      const now = new Date().getTime();
+      const timeLeft = targetDate - now;
+      
+      // Se il tempo è passato, mostra un messaggio finale
+      if (timeLeft < 0) {
+        clearInterval(interval);
+        document.getElementById("countdown").innerHTML = "Il conto alla rovescia è terminato.";
+        return;
+      }
+      
+      // Calcola giorni, ore, minuti e secondi
+      const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+      
+      // Aggiorna l'interfaccia
+      document.getElementById("days").innerText = days;
+      document.getElementById("hours").innerText = hours;
+      document.getElementById("minutes").innerText = minutes;
+      document.getElementById("seconds").innerText = seconds;
+    }
+    
+    updateCountdown(); // Aggiornamento iniziale
+    const interval = setInterval(updateCountdown, 1000); // Aggiornamento ogni secondo
+  </script>
+</body>
+</html>
